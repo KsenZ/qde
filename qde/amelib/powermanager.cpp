@@ -39,7 +39,7 @@ const QDBusArgument & operator>> (const QDBusArgument &arg, Property &change)
 
 
 PowerManager::PowerManager(QObject *parent) :
-    QObject(parent)
+    QObject(parent), mDevice(0)
 {
     qDBusRegisterMetaType< Property >();
     qDBusRegisterMetaType< QList<Property> >();
@@ -61,7 +61,8 @@ PowerManager::PowerManager(QObject *parent) :
     }
 
     QString bat = devices.first().toStringList()[0];
-    qDebug() << "Found device:" << bat;
+    qDebug() << "Found device:" << devices;
+
     mDevice = new QDBusInterface("org.freedesktop.Hal", bat,
 				 "org.freedesktop.Hal.Device",
 				 conn);
@@ -72,7 +73,7 @@ PowerManager::PowerManager(QObject *parent) :
 					      this,
 					      SLOT(listen(int,QList<Property>)));
     if (!ok)
-	qWarning() << "Unable to listen for battery's signals";
+        qWarning() << "Unable to listen for battery's signals";
 
 }
 
@@ -100,12 +101,22 @@ void PowerManager::update(){
 	       << "battery.charge_level.percentage";
 
     foreach(QString interface, interfaces){
-	QDBusMessage msg = mDevice->call("GetProperty", interface);
-	QVariant value = msg.arguments()[0];
-	switch(value.type()){
-	  case QVariant::Bool: emit batteryDischarging(value.toBool()); break;
-	  case QVariant::Int: emit batteryLevel(value.toInt()); break;
-	  default: qWarning() << "PowerManager: value type not handled";
-	}
+        if (!mDevice)
+            return;
+
+        QDBusMessage msg = mDevice->call("GetProperty", interface);
+        QString error = msg.errorMessage();
+
+        if (!error.isEmpty()){
+            qDebug() << "ERROR:" << error;
+            return;
+        }
+
+        QVariant value = msg.arguments()[0];
+        switch(value.type()){
+            case QVariant::Bool: emit batteryDischarging(value.toBool()); break;
+            case QVariant::Int: emit batteryLevel(value.toInt()); break;
+            default: qWarning() << "PowerManager: value type not handled";
+        }
     }
 }
