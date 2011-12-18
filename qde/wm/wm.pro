@@ -1,10 +1,11 @@
 TEMPLATE = app
 VERSION = 0.1.98
 
-QT += dbus xml
-CONFIG += qt release link_pkgconfig
+QT += dbus xml declarative
+CONFIG += qt link_pkgconfig debug
 PKGCONFIG += xfixes x11 xdamage xcomposite xrender
-RESOURCES = theme/std.qrc
+RESOURCES = theme/std.qrc \
+    qml/dockbar/dockbar.qrc
 
 UI_HEADERS_DIR = forms
 FORMS += \
@@ -20,7 +21,6 @@ INCLUDEPATH += ../amelib /usr/include/ame/
 LIBS += -L../amelib -lame
 
 HEADERS += defs.h \
-        aboutdlg.h \
         quitdlg.h \
         alttab.h \
         atoms.h \
@@ -29,7 +29,6 @@ HEADERS += defs.h \
         decor.h \
         client.h \
         desktop.h \
-        dockicon.h \
         dockbar.h \
         button.h \
         menu.h \
@@ -42,10 +41,13 @@ HEADERS += defs.h \
         systray.h \
         panel.h \
     powerindicator.h \
-    compmgr.h
+    compmgr.h \
+    dockbaritem.h \
+    dockbarclienticonprovider.h \
+    dockbarqmlextension.h \
+    dockbaritemmodel.h
 
 SOURCES += main.cpp \
-        aboutdlg.cpp \
         quitdlg.cpp \
         alttab.cpp \
         atoms.cpp \
@@ -56,10 +58,8 @@ SOURCES += main.cpp \
         events.cpp \
         decor.cpp \
         client.cpp \
-        x11management.cpp \
         panel.cpp \
         desktop.cpp \
-        dockicon.cpp \
         dockbar.cpp \
         button.cpp \
         menu.cpp \
@@ -71,7 +71,9 @@ SOURCES += main.cpp \
         kbswitch.cpp \
         systray.cpp \
     powerindicator.cpp \
-    compmgr.cpp
+    compmgr.cpp \
+    dockbaritemmodel.cpp \
+    client-x11.cpp
 
 TARGET = qde
 target.path=/usr/bin
@@ -98,3 +100,13 @@ exec_files.files += scripts/antico-deluxe-session
 exec_files.path=/usr/bin
 
 INSTALLS += target exec_files theme_files session_gdm_files session_kdm_files
+
+OTHER_FILES += \
+    qml/dockbar/DockbarItem.qml \
+    qml/dockbar/Dockbar.qml \
+    qml/dockbar/AboutDialog.qml
+
+
+
+
+

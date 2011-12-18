@@ -66,9 +66,9 @@ void Panel::setupGui(void)
 
 	currentApp = new CurrentApp(app, this);
 	layout->addWidget(currentApp);
-	//layout->addSpacing(1);
-	
-	layout->addStretch();	
+    //layout->addSpacing(1);
+
+    layout->addStretch();
 	desktopBtn = new ShowDesktop(app, this);
 	layout->addWidget(desktopBtn);
 	layout->addSpacing(8);
@@ -85,7 +85,7 @@ void Panel::setupGui(void)
 	layout->addWidget(pwrIndicator);
 	layout->addSpacing(4);
 
-        volume = new VolumeCtrl(this);
+    volume = new VolumeCtrl(this);
 	app->stg->beginGroup("Topbar");
 	volume->enableFeedback(app->stg->value("volume_feedback", true).toBool());
 	layout->addWidget(volume);

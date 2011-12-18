@@ -43,25 +43,28 @@ void DBusAdaptor::minimizeDblClick(bool active)
 	app->setMinimizeOnDblClick(active);
 }
 
-void DBusAdaptor::changeDockSize(int factor)
+void DBusAdaptor::changeDockSize(int factor) // REMOVE ME
 {
-	dock->setSizeFactor(factor);
+    Q_UNUSED(factor)
+    //dock->setSizeFactor(factor);
 }
 
-void DBusAdaptor::setDockAutoHide(bool active)
+void DBusAdaptor::setDockAutoHide(bool active)  // REMOVE ME
 {
-	dock->setAutoHide(active);
-	app->toppanel->sysBtn->rebuildMenu(active);
+    Q_UNUSED(active)
+    //dock->setAutoHide(active);
+    //app->toppanel->sysBtn->rebuildMenu(active);
 }
 
-void DBusAdaptor::changeDockSpeed(int animFactor)
+void DBusAdaptor::changeDockSpeed(int animFactor) // REMOVE ME
 {
-	dock->setAnimSpeed(animFactor);
+    Q_UNUSED(animFactor)
+    //dock->setAnimSpeed(animFactor);
 }
 
-void DBusAdaptor::showDockFast()
+void DBusAdaptor::showDockFast() //REMOVE ME
 {
-	dock->showFast();
+    //dock->showFast();
 }
 
 void DBusAdaptor::soundVolumeFeedback(bool enable)

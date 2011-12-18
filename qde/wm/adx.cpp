@@ -7,7 +7,6 @@
 #include <QtDBus>
 #include "adx.h"
 #include "atoms.h"
-#include "aboutdlg.h"
 #include "quitdlg.h"
 #include "dbusadaptor.h"
 #include "sysmenu.h"
@@ -44,6 +43,9 @@ Adx::Adx(int &argc, char **argv) : QApplication(argc, argv),
 
 Adx::~Adx()
 {
+    delete toppanel;
+    delete dock;
+    delete desktop;
 }
 
 void Adx::init()
@@ -68,7 +70,6 @@ void Adx::init()
 	qWarning() << "UNABLE TO REGISTER DBUS SERVICE";
     }
 
-    toppanel->sysBtn->rebuildMenu(dock->autoHide);
     manageRunningClients();
     m_Process = process_Normal;
 
@@ -79,14 +80,7 @@ void Adx::init()
 // Show Antico Deluxe "About this..." dialog
 void Adx::onAbout()
 {
-	QColor col = QApplication::palette().color(QPalette::Highlight);
-	AboutDlg *dlg = new AboutDlg(MAJOR_VERSION, MINOR_VERSION, QString(MODIFICATION));
-	sysId = dlg->winId();	
-	dlg->exec();
-	delete dlg;
-	sysId = 0;
-	// quick workaround "Highlight color disappear" bug
-	setHighlightColor(col);
+    dock->showAboutDialog();
 }
 
 

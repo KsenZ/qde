@@ -190,7 +190,7 @@ bool Adx::onKeyPress(XEvent *event)
 bool Adx::onKeyRelease(XEvent *event)
 {
 	KeySym sym;
-	uint mod;
+    uint mod;
 	uint keymask1 = Mod1Mask & 0x0F;
 	
 	sym = (int)XLookupKeysym(&event->xkey, 0);

@@ -232,6 +232,7 @@ void Client::getServerIcon(Pixmap icon, Pixmap mask)  // get pixmap from server 
 	}
 #endif
 	appIcon = pix.scaledToHeight(dock->height(), Qt::SmoothTransformation);
+
 }
 
 void Client::getColormaps(void)

@@ -2,8 +2,6 @@
 ** This file is part of QDe
 **
 ** Copyright (C) 2011,2012 Antonio Aloisio - gnuton@gnuton.org
-** Copyright (C) Cvetoslac Ludmiloff - ludmiloff@gmail.com
-** Copyright (C) Giuseppe Cigala - g_cigala@virgilio.it
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -20,50 +18,43 @@
 ** Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  USA
 ****************************************************************************/
 
+#ifndef DOCKBARITEMMODEL_H
+#define DOCKBARITEMMODEL_H
 
-// create the dockbar on bottom of the screen
+#include <QAbstractListModel>
 
-#ifndef DOCKBAR_H
-#define DOCKBAR_H
-
-#include "defs.h"
-
+//class DockbarItem;
 class Client;
-class Adx;
-class ClientIconProvider;
-class DockBarQMLExtension;
-class DockbarItemModel;
+class DockbarItem;
 
-class Dockbar : public QDeclarativeView
+class DockbarItemModel : public QAbstractListModel
 {
     Q_OBJECT
+    //Q_PROPERTY(int count READ count  NOTIFY rowCountChanged)
 
 public:
-	Dockbar(Adx *a, QWidget *parent=0);
-	~Dockbar();
-	
-	// Client management functions
-    void addClient(Client *client);
-    void removeClient(Client *client);
-    void removeAll();
+    enum Roles {
+             ClientRole = Qt::UserRole + 1,
+             AppNameRole,
+             IconRole
+         };
 
-	// Launchers management functions
-	void addLauncher(const QString &file);
+    explicit DockbarItemModel(QObject *parent = 0);
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    int columnCount(const QModelIndex &parent) const;
+    Qt::ItemFlags flags(const QModelIndex &index) const;
 
-    void showAboutDialog();
+    void add(Client* client);
+    void remove(Client* client);
+    QList<Client*> removeAll();
 
 signals:
-	void clientRemoved(Client *);
-
-protected:
-        virtual void dragEnterEvent(QDragEnterEvent *event);
-        virtual void dropEvent(QDropEvent *event);
-        virtual void resizeEvent (QResizeEvent * event);
+    //void rowCountChanged(int count);
 
 private:
-        DockbarItemModel *mModel;
-        DockBarQMLExtension *mQmlExtender;
+    Q_DISABLE_COPY(DockbarItemModel);
+    QList<Client*> mItems;
 };
 
-#endif
- 
+#endif // DOCKBARITEMMODEL_H

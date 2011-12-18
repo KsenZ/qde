@@ -7,5 +7,4 @@ SUBDIRS = amelib \
 	bobcat \
 	wm \
 	syspref \
-	runner \
-	term \
+        runner

@@ -33,6 +33,7 @@ Client::Client(Window w, Dockbar *dck, Desktop *d, int topbarHeight, bool dblCli
 Client::~Client()
 {
     qDebug() << "CLIENT DESTROYED" << clientId << "with Qt parent:" << winId();
+    dock->removeClient(this);
 }
 
 void Client::init()
