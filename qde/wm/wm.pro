@@ -73,7 +73,7 @@ SOURCES += main.cpp \
     powerindicator.cpp \
     compmgr.cpp
 
-TARGET = antico-deluxe
+TARGET = qde
 target.path=/usr/bin
 
 theme_files.files += theme/default/ame-logo.png \
