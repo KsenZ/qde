@@ -3,7 +3,7 @@ VERSION = 0.1.98
 
 QT += dbus xml
 CONFIG += qt release link_pkgconfig
-PKGCONFIG += xfixes x11 xdamage xcomposite
+PKGCONFIG += xfixes x11 xdamage xcomposite xrender
 RESOURCES = theme/std.qrc
 
 UI_HEADERS_DIR = forms
