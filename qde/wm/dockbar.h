@@ -20,7 +20,7 @@ class Adx;
 
 typedef QList<DockIcon *> DockIconsList;
 
-class Dockbar : public QLabel
+class Dockbar : public QDeclarativeView
 {
     Q_OBJECT
 

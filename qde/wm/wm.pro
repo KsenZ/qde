@@ -1,7 +1,7 @@
 TEMPLATE = app
 VERSION = 0.1.98
 
-QT += dbus xml
+QT += dbus xml declarative
 CONFIG += qt release link_pkgconfig
 PKGCONFIG += xfixes x11 xdamage xcomposite
 RESOURCES = theme/std.qrc

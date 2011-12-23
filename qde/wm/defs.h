@@ -7,6 +7,7 @@
 #define __DEFS_H
 
 #include <QApplication>
+#include <QtDeclarative/QDeclarativeView>
 #include <QPushButton>
 #include <QMap>
 #include <QLabel>
