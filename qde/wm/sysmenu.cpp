@@ -39,7 +39,7 @@ void SystemMenu::rebuildMenu(bool dockHiding)
 	connect(pref, SIGNAL(triggered()), this, SLOT(onPreferences()));
 
 	menu->addSeparator();
-
+/*
 	if (dockHiding) {
 		adock_on = new QAction("Turn Hiding Off", this);
 	} else {
@@ -56,13 +56,13 @@ void SystemMenu::rebuildMenu(bool dockHiding)
 	dock_menu->addAction(adock_on);
 	connect(adock_on, SIGNAL(triggered()), this, SLOT(onShowHideDock()));
 	connect(adock_pref, SIGNAL(triggered()), this, SLOT(onDockPref()));
-	
-	//dock_menu->addAction(adock_magn);
+
+        dock_menu->addAction(adock_magn);
 	dock_menu->addSeparator();
 	dock_menu->addAction(adock_pref);
 
 	menu->addSeparator();
-	
+*/
 /* TODO: Removed for now until I implement the features
 
 	QAction *force_quit = new QAction("Force Quit ...", this);
