@@ -12,16 +12,20 @@
 #include "adx.h"
 
 #include <QDeclarativeContext>
+#include <QDeclarativeEngine>
+
 #include "dockbaritem.h"
+#include "dockbarclienticonprovider.h"
 
-
-Dockbar::Dockbar(Adx *a, QWidget *parent) : QDeclarativeView(parent)
+Dockbar::Dockbar(Adx *a, QWidget *parent) : QDeclarativeView(parent), iconProvider(new ClientIconProvider)
 {   
     qDebug() << "Creating Dockbar";
 
     this->rootContext()->setContextProperty("rootWidth", 800);
-    //this->rootContext()->setContextProperty("dockbarModel", QVariant::fromValue(DockbarItemList));
-    //DockbarItemList.append(new DockbarItem("Item 1", "red"));
+    this->engine()->addImageProvider(QLatin1String("icons"), iconProvider);
+
+    // Initialize empty dockbarModel
+    this->rootContext()->setContextProperty("dockbarModel", QVariant::fromValue(DockbarItemList));
 
     this->setSource(QUrl("qrc:/Dockbar.qml"));
     this->setResizeMode(SizeViewToRootObject);
@@ -106,14 +110,17 @@ void Dockbar::setAnimSpeed(int factor)
 void Dockbar::addClient(Client *client)
 {
     qDebug() << "Add Client" << client;
+    DockbarItemList.append(new DockbarItem(client, iconProvider));
+    this->rootContext()->setContextProperty("dockbarModel", QVariant::fromValue(DockbarItemList));
+
     /*
 	DockIcon *dockIcon = new DockIcon(client);
 	iconsList->append(dockIcon);
 	updateSize();
 	iconLayout->addWidget(dockIcon);
 	connect(dockIcon, SIGNAL(showIcon(DockIcon *)), SLOT(removeIcon(DockIcon *))); // show iconize dockicon and update dockbar size
-	connect(dockIcon, SIGNAL(destroyIcon(DockIcon *)), SLOT(removeIcon(DockIcon *))); // show iconize dockicon and update dockbar size
-*/
+        connect(dockIcon, SIGNAL(destroyIcon(DockIcon *)), SLOT(removeIcon(DockIcon *))); // show iconize dockicon and update dockbar size
+     */
 }
 
 void Dockbar::removeIcon(DockIcon *d)

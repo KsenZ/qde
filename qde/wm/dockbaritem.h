@@ -2,6 +2,10 @@
 #define DOCKBARITEM_H
 
 #include <QObject>
+#include <QDebug>
+
+#include "client.h"
+#include "dockbarclienticonprovider.h"
 
 class DockbarItem : public QObject
 {
@@ -14,6 +18,12 @@ public:
         setName(name);
         setIcon(icon);
     };
+
+    DockbarItem(Client* client, ClientIconProvider *icons) : QObject(){
+        setName(client->appName);
+        icons->append(client->appName, client->appIcon);
+        mIcon = client->appName;
+    }
 
     QString name(){ return mName;};
     void setName(const QString& name){ mName = name; };

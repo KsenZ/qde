@@ -28,14 +28,16 @@ Rectangle {
 
         ListView {
             id: list
-            //cacheBuffer: 10 //Show all items
+            cacheBuffer: 100 //FIXME Show all items
             orientation: ListView.Horizontal
             anchors.bottom: backgroundBar.bottom
             anchors.horizontalCenter: backgroundBar.Center
             width: parent.width
-            model: 5
+            model: dockbarModel
             delegate: DockbarItem {
                 size: itemSize
+                iconSource: "image://icons/" + model.modelData.icon
+                appName: model.modelData.name
                 onHasMouse: root.containsMouse = !root.containsMouse
             }
         }

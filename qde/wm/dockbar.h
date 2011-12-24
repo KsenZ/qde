@@ -15,6 +15,7 @@
 class Client;
 class DockIcon;
 class Adx;
+class ClientIconProvider;
 
 //typedef QList<DockIcon *> DockIconsList;
 
@@ -96,6 +97,8 @@ private:
         */
         // MIO
         QList<QObject*> DockbarItemList;
+        ClientIconProvider *iconProvider;
 };
+
 #endif
  
