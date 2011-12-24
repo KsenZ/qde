@@ -3,7 +3,6 @@ import QtQuick 1.0
 
 Rectangle {
     id: root
-    property int items: 5
     property int itemSize: 64
     property int maxBarHeight: itemSize * 2
     property bool containsMouse : false
@@ -29,12 +28,12 @@ Rectangle {
 
         ListView {
             id: list
-            cacheBuffer: items //Show all items
+            //cacheBuffer: 10 //Show all items
             orientation: ListView.Horizontal
             anchors.bottom: backgroundBar.bottom
-            anchors.horizontalCenter: backgroundBar
+            anchors.horizontalCenter: backgroundBar.Center
             width: parent.width
-            model: items
+            model: 5
             delegate: DockbarItem {
                 size: itemSize
                 onHasMouse: root.containsMouse = !root.containsMouse

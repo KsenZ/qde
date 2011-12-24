@@ -16,7 +16,7 @@ class Client;
 class DockIcon;
 class Adx;
 
-typedef QList<DockIcon *> DockIconsList;
+//typedef QList<DockIcon *> DockIconsList;
 
 class Dockbar : public QDeclarativeView
 {
@@ -44,8 +44,8 @@ public:
 	bool autoHide;
 	
 	// Client management functions
-	void addClient(Client *);
-	bool removeClient(Client *);
+        void addClient(Client *client);
+        bool removeClient(Client *client);
 	bool removeAll();
 
 	// Launchers management functions
@@ -78,19 +78,24 @@ protected:
         virtual void resizeEvent (QResizeEvent * event);
 
 private:
+        bool checkCursor();
+        /*
 	QHBoxLayout *dockLayout;
 	QHBoxLayout *iconLayout;
 	QFrame *dockFrame;
 	Adx *app;
 
-	DockIconsList *iconsList;
+        //DockIconsList *iconsList;
 	QString dockPix;	//
 	int dockSizeFactor; 	// Dockbar scale factor (0,100) percents
 	int dockAnimFactor;	//Speed of hiding/showing.
 	int delay, speed;
     
 	QTimer *timer, *hideTimer;
-	bool checkCursor();
+
+        */
+        // MIO
+        QList<QObject*> DockbarItemList;
 };
 #endif
  

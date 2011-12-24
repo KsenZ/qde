@@ -12,10 +12,17 @@
 #include "adx.h"
 
 #include <QDeclarativeContext>
+#include "dockbaritem.h"
+
 
 Dockbar::Dockbar(Adx *a, QWidget *parent) : QDeclarativeView(parent)
 {   
+    qDebug() << "Creating Dockbar";
+
     this->rootContext()->setContextProperty("rootWidth", 800);
+    //this->rootContext()->setContextProperty("dockbarModel", QVariant::fromValue(DockbarItemList));
+    //DockbarItemList.append(new DockbarItem("Item 1", "red"));
+
     this->setSource(QUrl("qrc:/Dockbar.qml"));
     this->setResizeMode(SizeViewToRootObject);
 
@@ -65,25 +72,25 @@ Dockbar::~Dockbar()
 void Dockbar::readSettings()
 {
     qDebug() << "READ SETTINGS";
-
+/*
 	app->stg->beginGroup("Dockbar");
         dockPix = app->stg->value("dock_pix", QCoreApplication::applicationDirPath() + "/../share/themes/antico/default/dockbar.png").toString();
 	dockSizeFactor = app->stg->value("dock_factor", 100).toInt();
 	setAnimSpeed(app->stg->value("dock_anim_factor", 0).toInt());
 	autoHide = app->stg->value("dock_autohide", false).toBool();
 	app->stg->endGroup(); //Dockbar
-
+*/
 }
 
 void Dockbar::saveSettings()
 {
     qDebug() << "Save settings";
-
+/*
 	app->stg->beginGroup("Dockbar");
 	app->stg->setValue("dock_autohide", autoHide);	
 	app->stg->endGroup();
 	app->stg->sync();
-
+*/
 }
 
 void Dockbar::setAnimSpeed(int factor)
@@ -98,7 +105,7 @@ void Dockbar::setAnimSpeed(int factor)
 
 void Dockbar::addClient(Client *client)
 {
-    qDebug() << "Add Client";
+    qDebug() << "Add Client" << client;
     /*
 	DockIcon *dockIcon = new DockIcon(client);
 	iconsList->append(dockIcon);
@@ -211,10 +218,11 @@ void Dockbar::setAutoHide(bool active)
 
 // checkCursor : checks if the cursor is within dockbar area
 // returns: true if yes, false if not
+
 bool Dockbar::checkCursor()
 {
     qDebug() << "checkCursor";
-    /*
+/*
 	int dx = QCursor::pos().x();
 	int dy = QCursor::pos().y();
 	bool f1 = true;
@@ -235,7 +243,7 @@ bool Dockbar::checkCursor()
 	}
 	//qDebug() << "CHECK CURSOR :" << (f1 && f2);
 	return (f1 &&  f2);
-        */
+*/
 }
 
 void Dockbar::hideShowDock()
@@ -248,7 +256,7 @@ void Dockbar::hideShowDock()
 		animateHide();
 	} else if (dockState == Dockbar::Hidden && checkCursor())
 		animateShow();
-                */
+     */
 }
 
 void Dockbar::animateHide()

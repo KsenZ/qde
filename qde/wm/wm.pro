@@ -2,7 +2,7 @@ TEMPLATE = app
 VERSION = 0.1.98
 
 QT += dbus xml declarative
-CONFIG += qt release link_pkgconfig
+CONFIG += qt link_pkgconfig debug
 PKGCONFIG += xfixes x11 xdamage xcomposite
 RESOURCES = theme/std.qrc \
     qml/dockbar/dockbar.qrc
@@ -43,7 +43,8 @@ HEADERS += defs.h \
         systray.h \
         panel.h \
     powerindicator.h \
-    compmgr.h
+    compmgr.h \
+    dockbaritem.h
 
 SOURCES += main.cpp \
         aboutdlg.cpp \
@@ -103,5 +104,6 @@ INSTALLS += target exec_files theme_files session_gdm_files session_kdm_files
 OTHER_FILES += \
     qml/dockbar/DockbarItem.qml \
     qml/dockbar/Dockbar.qml
+
 
 
