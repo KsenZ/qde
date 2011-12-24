@@ -11,8 +11,18 @@
 #include "dockicon.h"
 #include "adx.h"
 
+#include <QDeclarativeContext>
+
 Dockbar::Dockbar(Adx *a, QWidget *parent) : QDeclarativeView(parent)
-{
+{   
+    this->rootContext()->setContextProperty("rootWidth", 800);
+    this->setSource(QUrl("qrc:/Dockbar.qml"));
+    this->setResizeMode(SizeViewToRootObject);
+
+    // Enable transparency
+    this->setAttribute(Qt::WA_TranslucentBackground);
+    this->viewport()->setAutoFillBackground(false);
+
     /*
 	app = a;
 	dockLayout = new QHBoxLayout();
@@ -54,28 +64,31 @@ Dockbar::~Dockbar()
 
 void Dockbar::readSettings()
 {
-    /*
+    qDebug() << "READ SETTINGS";
+
 	app->stg->beginGroup("Dockbar");
         dockPix = app->stg->value("dock_pix", QCoreApplication::applicationDirPath() + "/../share/themes/antico/default/dockbar.png").toString();
 	dockSizeFactor = app->stg->value("dock_factor", 100).toInt();
 	setAnimSpeed(app->stg->value("dock_anim_factor", 0).toInt());
 	autoHide = app->stg->value("dock_autohide", false).toBool();
 	app->stg->endGroup(); //Dockbar
-        */
+
 }
 
 void Dockbar::saveSettings()
 {
-    /*
+    qDebug() << "Save settings";
+
 	app->stg->beginGroup("Dockbar");
 	app->stg->setValue("dock_autohide", autoHide);	
 	app->stg->endGroup();
 	app->stg->sync();
-        */
+
 }
 
 void Dockbar::setAnimSpeed(int factor)
 {
+    qDebug() << "setAnimSpeed";
     /*
 	dockAnimFactor = factor;
 	delay = 800 + dockAnimFactor * 1000;
@@ -85,6 +98,7 @@ void Dockbar::setAnimSpeed(int factor)
 
 void Dockbar::addClient(Client *client)
 {
+    qDebug() << "Add Client";
     /*
 	DockIcon *dockIcon = new DockIcon(client);
 	iconsList->append(dockIcon);
@@ -97,6 +111,7 @@ void Dockbar::addClient(Client *client)
 
 void Dockbar::removeIcon(DockIcon *d)
 {
+    qDebug() << "removeIcon";
     /*
 	iconsList->removeOne(d);
 	app->onDockIconRemoved(d->client);
@@ -106,6 +121,7 @@ void Dockbar::removeIcon(DockIcon *d)
 
 bool Dockbar::removeClient(Client *client)
 {
+    qDebug() << "removeClient";
     /*
 	DockIcon *d;
 	foreach(d, *iconsList)
@@ -123,6 +139,7 @@ bool Dockbar::removeClient(Client *client)
 
 bool Dockbar::removeAll()
 {
+    qDebug() << "removeAll";
     /*
 	DockIcon *d;
 	foreach(d, *iconsList)
@@ -163,6 +180,16 @@ void Dockbar::dropEvent(QDropEvent *event)
     */
 }
 
+void Dockbar::resizeEvent(QResizeEvent *event)
+{
+    qDebug() << "RESIZE" << event->size();
+
+    // Set Geometry
+    int maxW = QApplication::desktop()->width();
+    int maxH = QApplication::desktop()->height();
+
+    this->setGeometry(QRect((maxW - width())/2, maxH - height(), maxW, height()));
+}
 
 void Dockbar::setAutoHide(bool active)
 {
@@ -186,6 +213,7 @@ void Dockbar::setAutoHide(bool active)
 // returns: true if yes, false if not
 bool Dockbar::checkCursor()
 {
+    qDebug() << "checkCursor";
     /*
 	int dx = QCursor::pos().x();
 	int dy = QCursor::pos().y();
@@ -212,6 +240,7 @@ bool Dockbar::checkCursor()
 
 void Dockbar::hideShowDock()
 {
+    qDebug()<< "hideShowDock";
     /*
 	hideTimer->stop();
 	hideTimer->start(delay);
@@ -300,6 +329,7 @@ void Dockbar::show1Step()
 
 int Dockbar::actualHeight()
 {
+    return height();
     /*
 	if (dockState == Dockbar::Normal)
 		return height();
@@ -314,7 +344,9 @@ int Dockbar::actualHeight()
 // 
 void Dockbar::setSizeFactor(int factor, bool doSave)
 {
-    /*
+
+    qDebug() << "SET SIZE FACTOR";
+/*
 	dockSizeFactor = factor;
 	if (doSave)
 		saveSettings();
@@ -336,6 +368,8 @@ void Dockbar::setSizeFactor(int factor, bool doSave)
 void Dockbar::updateSize(void)
 {
     /*
+    qDebug() << "UPDATE SIZE";
+
 	int dockLength;
 	DockIcon *d;
 

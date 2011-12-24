@@ -12,8 +12,6 @@
 
 #include "defs.h"
 
-#define MAX_DOCK_HEIGHT 64
-
 class Client;
 class DockIcon;
 class Adx;
@@ -77,6 +75,7 @@ signals:
 protected:
         virtual void dragEnterEvent(QDragEnterEvent *event);
         virtual void dropEvent(QDropEvent *event);
+        virtual void resizeEvent (QResizeEvent * event);
 
 private:
 	QHBoxLayout *dockLayout;

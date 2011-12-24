@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Dockbar.qml</file>
+        <file>DockbarItem.qml</file>
+    </qresource>
+</RCC>

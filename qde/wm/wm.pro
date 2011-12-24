@@ -4,7 +4,8 @@ VERSION = 0.1.98
 QT += dbus xml declarative
 CONFIG += qt release link_pkgconfig
 PKGCONFIG += xfixes x11 xdamage xcomposite
-RESOURCES = theme/std.qrc
+RESOURCES = theme/std.qrc \
+    qml/dockbar/dockbar.qrc
 
 UI_HEADERS_DIR = forms
 FORMS += \
@@ -98,3 +99,9 @@ exec_files.files += scripts/antico-deluxe-session
 exec_files.path=/usr/bin
 
 INSTALLS += target exec_files theme_files session_gdm_files session_kdm_files
+
+OTHER_FILES += \
+    qml/dockbar/DockbarItem.qml \
+    qml/dockbar/Dockbar.qml
+
+
