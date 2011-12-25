@@ -1,4 +1,3 @@
- 
 import QtQuick 1.0
 
 Rectangle {
@@ -39,6 +38,7 @@ Rectangle {
                 iconSource: "image://icons/" + model.modelData.icon
                 appName: model.modelData.name
                 onHasMouse: root.containsMouse = !root.containsMouse
+                onClicked: console.log("CLICKED")
             }
         }
     }

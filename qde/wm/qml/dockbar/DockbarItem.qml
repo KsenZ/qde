@@ -9,6 +9,7 @@ Rectangle {
     property string appName : ""
 
     signal hasMouse;
+    signal clicked;
 
     width: size * mScale
     height: width
@@ -31,8 +32,8 @@ Rectangle {
         id: ma
         anchors.fill: parent
         hoverEnabled: true
-
-        onContainsMouseChanged: {dockbaritem.hasMouse();}
+        onClicked: { dockbaritem.clicked(); }
+        onContainsMouseChanged: { dockbaritem.hasMouse(); }
     }
 
     Behavior on width {PropertyAnimation { duration: 200}}

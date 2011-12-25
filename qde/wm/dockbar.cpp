@@ -126,6 +126,7 @@ void Dockbar::addClient(Client *client)
 void Dockbar::removeIcon(DockIcon *d)
 {
     qDebug() << "removeIcon";
+
     /*
 	iconsList->removeOne(d);
 	app->onDockIconRemoved(d->client);
@@ -136,6 +137,7 @@ void Dockbar::removeIcon(DockIcon *d)
 bool Dockbar::removeClient(Client *client)
 {
     qDebug() << "removeClient";
+
     /*
 	DockIcon *d;
 	foreach(d, *iconsList)
