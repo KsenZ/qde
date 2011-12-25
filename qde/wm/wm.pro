@@ -45,7 +45,8 @@ HEADERS += defs.h \
     powerindicator.h \
     compmgr.h \
     dockbaritem.h \
-    dockbarclienticonprovider.h
+    dockbarclienticonprovider.h \
+    dockbarqmlextension.h
 
 SOURCES += main.cpp \
         aboutdlg.cpp \
@@ -105,6 +106,7 @@ INSTALLS += target exec_files theme_files session_gdm_files session_kdm_files
 OTHER_FILES += \
     qml/dockbar/DockbarItem.qml \
     qml/dockbar/Dockbar.qml
+
 
 
 

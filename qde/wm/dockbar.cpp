@@ -16,6 +16,7 @@
 
 #include "dockbaritem.h"
 #include "dockbarclienticonprovider.h"
+#include "dockbarqmlextension.h"
 
 Dockbar::Dockbar(Adx *a, QWidget *parent) : QDeclarativeView(parent), iconProvider(new ClientIconProvider)
 {   
@@ -26,6 +27,7 @@ Dockbar::Dockbar(Adx *a, QWidget *parent) : QDeclarativeView(parent), iconProvid
 
     // Initialize empty dockbarModel
     this->rootContext()->setContextProperty("dockbarModel", QVariant::fromValue(DockbarItemList));
+    this->rootContext()->setContextProperty("dockbarExt", new DockBarQMLExtension(this));
 
     this->setSource(QUrl("qrc:/Dockbar.qml"));
     this->setResizeMode(SizeViewToRootObject);
