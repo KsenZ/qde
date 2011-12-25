@@ -38,7 +38,7 @@ Rectangle {
                 iconSource: "image://icons/" + model.modelData.icon
                 appName: model.modelData.name
                 onHasMouse: root.containsMouse = !root.containsMouse
-                onClicked: dockbarExt.mapClient(model.modelData.client);
+                onClicked: dockbarExt.removeClientFromDock(model.modelData.client);
             }
         }
     }

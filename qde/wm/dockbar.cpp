@@ -22,6 +22,9 @@ Dockbar::Dockbar(Adx *a, QWidget *parent) : QDeclarativeView(parent), iconProvid
 {   
     qDebug() << "Creating Dockbar";
 
+    //qRegisterMetaType<DockbarItem*>("DockbarItem*");
+    //qRegisterMetaType<QList<DockbarItem*> >("QList<DockbarItem*>");
+
     this->rootContext()->setContextProperty("rootWidth", 800);
     this->engine()->addImageProvider(QLatin1String("icons"), iconProvider);
 
@@ -139,6 +142,16 @@ void Dockbar::removeIcon(DockIcon *d)
 bool Dockbar::removeClient(Client *client)
 {
     qDebug() << "removeClient";
+    QObject *item;
+
+    foreach(item, DockbarItemList) {
+        DockbarItem *i = qobject_cast<DockbarItem*>(item);
+        if (i->client() == client) {
+            DockbarItemList.removeOne(i);
+            break;
+        }
+    }
+    this->rootContext()->setContextProperty("dockbarModel", QVariant::fromValue(DockbarItemList));
 
     /*
 	DockIcon *d;

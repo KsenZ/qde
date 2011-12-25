@@ -15,10 +15,11 @@ class DockbarItem : public QObject
     Q_PROPERTY(Client* client READ client WRITE setClient NOTIFY clientChanged)
 
 public:
+    /*
     DockbarItem(const QString& name, const QString& icon) : QObject(){
         setName(name);
         setIcon(icon);
-    };
+    };*/
 
     DockbarItem(Client* client, ClientIconProvider *icons) : QObject(){
         setName(client->appName);
@@ -46,5 +47,7 @@ private:
     QString mIcon;
     Client* mClient;
 };
+//Q_DECLARE_METATYPE(DockbarItem*)
+//Q_DECLARE_METATYPE(QList<DockbarItem*>)
 
 #endif // DOCKBARITEM_H

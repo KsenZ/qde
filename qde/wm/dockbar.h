@@ -13,7 +13,8 @@
 #include "defs.h"
 
 class Client;
-class DockIcon;
+class DockbarItem;
+class DockIcon; // REMOVE
 class Adx;
 class ClientIconProvider;
 

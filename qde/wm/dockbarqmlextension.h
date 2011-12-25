@@ -13,12 +13,13 @@ public:
         qRegisterMetaType<Client*>("Client*");
     }
 
-    Q_INVOKABLE void mapClient(Client* client) const {
+    Q_INVOKABLE void removeClientFromDock(Client* client) const {
         qDebug() << "CLIENT" << client;
         if (client != 0)
-            client->map();
+            client->removeFromDock();
     }
 };
+
 Q_DECLARE_METATYPE(Client*)
 
 #endif // DOCKBARQMLEXTENSION_H
