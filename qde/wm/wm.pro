@@ -30,7 +30,6 @@ HEADERS += defs.h \
         decor.h \
         client.h \
         desktop.h \
-        dockicon.h \
         dockbar.h \
         button.h \
         menu.h \
@@ -63,7 +62,6 @@ SOURCES += main.cpp \
         x11management.cpp \
         panel.cpp \
         desktop.cpp \
-        dockicon.cpp \
         dockbar.cpp \
         button.cpp \
         menu.cpp \

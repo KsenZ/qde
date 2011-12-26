@@ -18,7 +18,6 @@ public:
 public slots:
 	void onAbout();
 	void onPreferences();
-	void onShowHideDock();
 	void onDockPref();
 	void onLogout();
 	void onSleep();

@@ -68,7 +68,7 @@ void Adx::init()
 	qWarning() << "UNABLE TO REGISTER DBUS SERVICE";
     }
 
-    toppanel->sysBtn->rebuildMenu(dock->autoHide);
+    //toppanel->sysBtn->rebuildMenu(dock->autoHide);
     manageRunningClients();
     m_Process = process_Normal;
 
