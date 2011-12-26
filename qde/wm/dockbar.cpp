@@ -22,14 +22,12 @@ Dockbar::Dockbar(Adx *a, QWidget *parent) : QDeclarativeView(parent), iconProvid
 {   
     qDebug() << "Creating Dockbar";
 
-    //qRegisterMetaType<DockbarItem*>("DockbarItem*");
-    //qRegisterMetaType<QList<DockbarItem*> >("QList<DockbarItem*>");
-
     this->rootContext()->setContextProperty("rootWidth", 800);
     this->engine()->addImageProvider(QLatin1String("icons"), iconProvider);
 
     // Initialize empty dockbarModel
     this->rootContext()->setContextProperty("dockbarModel", QVariant::fromValue(DockbarItemList));
+    this->rootContext()->setContextProperty("items",DockbarItemList.count());
     this->rootContext()->setContextProperty("dockbarExt", new DockBarQMLExtension(this));
 
     this->setSource(QUrl("qrc:/Dockbar.qml"));
@@ -213,13 +211,15 @@ void Dockbar::dropEvent(QDropEvent *event)
 
 void Dockbar::resizeEvent(QResizeEvent *event)
 {
+    Q_UNUSED(event)
     qDebug() << "RESIZE" << event->size();
 
     // Set Geometry
     int maxW = QApplication::desktop()->width();
     int maxH = QApplication::desktop()->height();
 
-    this->setGeometry(QRect((maxW - width())/2, maxH - height(), maxW, height()));
+    //Keeps dockbar in the right place
+    this->setGeometry(QRect((maxW - width())/2, maxH - height(), width(), height()));
 }
 
 void Dockbar::setAutoHide(bool active)

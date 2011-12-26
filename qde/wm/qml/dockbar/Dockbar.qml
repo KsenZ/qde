@@ -7,7 +7,7 @@ Rectangle {
 
     color: "transparent"
     height: itemSize
-    width: rootWidth
+    width: list.contentWidth
 
     Timer {
         id: timer
@@ -35,7 +35,7 @@ Rectangle {
 
         ListView {
             id: list
-            cacheBuffer: 100//FIXME Show all items
+            cacheBuffer: items
             orientation: ListView.Horizontal
             anchors.bottom: backgroundBar.bottom
             anchors.horizontalCenter: backgroundBar.Center
