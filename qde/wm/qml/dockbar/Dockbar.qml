@@ -9,6 +9,12 @@ Rectangle {
     color: "transparent"
     height: (containsMouse) ? maxBarHeight : itemSize
     width: rootWidth
+    Behavior on height {PropertyAnimation { fromduration: 200}}
+    Timer {
+        interval: 500; running: true; repeat: true
+        onTriggered: time.text = Date().toString()
+    }
+
     Item {
         id: positioner // Center horizzontally the bottom bar
         width: list.contentWidth
@@ -27,7 +33,7 @@ Rectangle {
 
         ListView {
             id: list
-            cacheBuffer: 100 //FIXME Show all items
+            cacheBuffer: list.model.count //FIXME Show all items
             orientation: ListView.Horizontal
             anchors.bottom: backgroundBar.bottom
             anchors.horizontalCenter: backgroundBar.Center
@@ -37,7 +43,7 @@ Rectangle {
                 size: itemSize
                 iconSource: "image://icons/" + model.modelData.icon
                 appName: model.modelData.name
-                onHasMouse: root.containsMouse = !root.containsMouse
+                onHasMouse: root.containsMouse = containsMouse
                 onClicked: dockbarExt.removeClientFromDock(model.modelData.client);
             }
         }
