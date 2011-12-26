@@ -30,7 +30,6 @@ public slots:
 	void onShowNext();
 	void onWallpaper();
 	void onAppearance();
-	void onDock();
 	void onDateTime();
 	void onSound();
         void onIntnl();

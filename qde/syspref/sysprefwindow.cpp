@@ -2,7 +2,6 @@
 #include "prefwidget.h"
 #include "appearance.h"
 #include "wallpaper.h"
-#include "dock.h"
 #include "datetime.h"
 #include "soundpref.h"
 #include "intnl.h"
@@ -42,14 +41,11 @@ SysPref::SysPref(int module)
 			break;
 		case 2:
 			onWallpaper();
-			break;
-		case 3:
-			onDock();
-			break;
-		case 4:
+            break;
+        case 3:
 			onDateTime();
 			break;
-		case 5:
+        case 4:
 			onIntnl();
 			break;
 	}
@@ -151,22 +147,6 @@ void SysPref::onAppearance()
 	setWindowTitle(frm->moduleName);	
 }
 
-void SysPref::onDock()
-{
-	DockPref *frm;
-	if (nextWidget != NULL && nextWidget->moduleName == "Dock") {
-		frm = (DockPref *) nextWidget;
-	} else {
-		frm = new DockPref();
-	}
-	stack->addWidget(frm);
-	frm->show();
-	stack->setCurrentIndex(1);
-	discardPrevious();
-	nextWidget = NULL;
-	setWindowTitle(frm->moduleName);	
-}
-
 void SysPref::onDateTime()
 {
 	DateTimePref *frm;
@@ -247,19 +227,13 @@ void SysPref::setupLaunchers()
 	connect(desktop, SIGNAL(clicked()), this, SLOT(onWallpaper()));
 
 	//AmeIconLink *screensaver = new AmeIconLink("Screen\nSaver", path+"screensaver.png", "screensaver", "");
-	
-	AmeIconLink *dock = new AmeIconLink("Dock", ":/icons/object/dock.png", "dock", "");
-        connect(dock, SIGNAL(clicked()), this, SLOT(onDock()));
 
-        AmeIconLink *intnl = new AmeIconLink("Language\nsettings", ":/icons/object/language.png", "intnl", "");
-        connect(intnl, SIGNAL(clicked()), this, SLOT(onIntnl()));
-
+    AmeIconLink *intnl = new AmeIconLink("Language\nsettings", ":/icons/object/language.png", "intnl", "");
+    connect(intnl, SIGNAL(clicked()), this, SLOT(onIntnl()));
 
 	personal->addIcon(appearance);
 	personal->addIcon(desktop);
-	//personal->addIcon(screensaver);
-	personal->addIcon(dock);
-        personal->addIcon(intnl);
+    personal->addIcon(intnl);
 	
 	browser->addSection(personal);
 

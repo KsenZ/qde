@@ -8,7 +8,6 @@ UI_HEADERS_DIR = forms
 
 FORMS += forms/wallpaper.ui \
                 forms/appearance.ui \
-                forms/dock.ui \
                 forms/datetime.ui \
                 forms/sound.ui \
                 forms/international.ui
@@ -19,7 +18,6 @@ HEADERS += dbusadapt.h \
                 prefwidget.h \
                 appearance.h \
                 wallpaper.h	\
-                dock.h \
                 clockwidget.h \
                 datetime.h \
                 soundpref.h \
@@ -32,7 +30,6 @@ SOURCES += dbusadapt.cpp \
                 prefwidget.cpp \
                 appearance.cpp \
                 wallpaper.cpp \
-                dock.cpp \
                 clockwidget.cpp \
                 datetime.cpp \
                 soundpref.cpp \
