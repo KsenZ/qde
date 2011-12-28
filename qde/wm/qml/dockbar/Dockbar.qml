@@ -1,13 +1,11 @@
 import QtQuick 1.0
 
-Rectangle {
+Item {
     id: root
     property int itemSize: 64
     property int maxBarHeight: itemSize * 2
-
-    color: "transparent"
     height: itemSize
-    width: list.contentWidth
+    width: (items * itemSize) + maxBarHeight/2
 
     Timer {
         id: timer
@@ -19,13 +17,13 @@ Rectangle {
 
     Item {
         id: positioner // Center horizzontally the bottom bar
-        width: list.contentWidth
+        width: (list.contentWidth < 2) ? itemSize : list.contentWidth
         height: parent.height
         anchors.centerIn: parent
 
         Rectangle {
             id: backgroundBar
-            width: list.contentWidth
+            width: parent.width
             height: itemSize
             anchors.bottom: parent.bottom
             color: "white"
@@ -51,7 +49,10 @@ Rectangle {
                         root.height = maxBarHeight
                     }
                 }
-                onClicked: dockbarExt.removeClientFromDock(model.modelData.client);
+                onClicked: {
+                    dockbarExt.removeClientFromDock(model.modelData.client);
+                    root.height = itemSize
+                }
             }
         }
     }

@@ -70,6 +70,8 @@ void Dockbar::addClient(Client *client)
     qDebug() << "Add Client" << client;
     DockbarItemList.append(new DockbarItem(client, iconProvider));
     this->rootContext()->setContextProperty("dockbarModel", QVariant::fromValue(DockbarItemList));
+    this->rootContext()->setContextProperty("items",DockbarItemList.count());
+
 }
 
 bool Dockbar::removeClient(Client *client)
@@ -85,7 +87,9 @@ bool Dockbar::removeClient(Client *client)
         }
     }
     this->rootContext()->setContextProperty("dockbarModel", QVariant::fromValue(DockbarItemList));
+    this->rootContext()->setContextProperty("items",DockbarItemList.count());
 }
+
 
 bool Dockbar::removeAll()
 {
