@@ -12,6 +12,7 @@
 
 #include <QDeclarativeContext>
 #include <QDeclarativeEngine>
+#include <QDesktopWidget>
 
 #include "dockbaritem.h"
 #include "dockbarclienticonprovider.h"
@@ -21,7 +22,10 @@ Dockbar::Dockbar(Adx *a, QWidget *parent) : QDeclarativeView(parent), iconProvid
 {   
     qDebug() << "Creating Dockbar";
 
-    this->rootContext()->setContextProperty("rootWidth", 800);
+    QDesktopWidget d;
+    this->rootContext()->setContextProperty("screenHeight", d.height());
+    this->rootContext()->setContextProperty("screenWidth", d.width());
+
     this->engine()->addImageProvider(QLatin1String("icons"), iconProvider);
 
     // Initialize empty dockbarModel
@@ -110,6 +114,11 @@ bool Dockbar::removeAll()
 void Dockbar::addLauncher(const QString &file)
 {
     Q_UNUSED(file)
+}
+
+void Dockbar::showAboutDialog(){
+    qDebug() << "DLG";
+
 }
 
 void Dockbar::dragEnterEvent(QDragEnterEvent *event)
