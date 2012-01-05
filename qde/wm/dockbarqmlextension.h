@@ -14,10 +14,15 @@ public:
     }
 
     Q_INVOKABLE void removeClientFromDock(Client* client) const {
-        qDebug() << "CLIENT" << client;
         if (client != 0)
             client->removeFromDock();
     }
+
+    void showAboutDialog() { emit showAboutDlg(); }
+
+signals:
+    void showAboutDlg();
+
 };
 
 Q_DECLARE_METATYPE(Client*)
