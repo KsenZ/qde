@@ -36,6 +36,8 @@ public:
 	// Launchers management functions
 	void addLauncher(const QString &file);
 
+    void showAboutDialog();
+
 	void readSettings();
 	void saveSettings();
 
