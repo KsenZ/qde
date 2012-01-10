@@ -44,6 +44,9 @@ Adx::Adx(int &argc, char **argv) : QApplication(argc, argv),
 
 Adx::~Adx()
 {
+    delete toppanel;
+    delete dock;
+    delete desktop;
 }
 
 void Adx::init()
