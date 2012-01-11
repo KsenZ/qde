@@ -4,8 +4,45 @@ Item {
     id: root
     property int itemSize: 64
     property int maxBarHeight: itemSize * 2
-    height: itemSize
-    width: (items * itemSize) + maxBarHeight/2
+    state: "normal"
+
+    function fullscreen(b) {
+        console.log("CIAO")
+        root.state = (b) ? "fullscreen" : ""
+    }
+
+    states: [
+        State {
+            name: "fullscreen"
+            PropertyChanges {
+                target: root
+                height: screenHeight
+            }
+            PropertyChanges {
+                target: root
+                width: screenWidth
+            }
+        },
+
+        State {
+            name: "normal"
+            PropertyChanges {
+                target: root
+                height: itemSize
+            }
+            PropertyChanges {
+                target: root
+                width: (items * itemSize) + maxBarHeight/2
+            }
+        }
+    ]
+
+    Rectangle {
+       id: debugItem
+       visible: true
+       color: "red"
+       anchors.fill: parent
+    }
 
     Timer {
         id: timer
@@ -15,6 +52,35 @@ Item {
         onTriggered: height = itemSize
     }
 
+    // Dialog
+    Item {
+       id: dialog
+       anchors.fill: parent
+       visible: false
+       MouseArea {
+           anchors.fill: parent
+           onClicked: dialog.hideDialog();
+       }
+       /*
+       Connections {
+            target: dockbarExt
+            onShowAboutDialog: dialog.showDialog();
+       }*/
+
+       function showDialog() {
+           console.log("SHOW DIALOG")
+           root.fullscreen(true);
+           dialog.visible = true
+
+       }
+       function hideDialog() {
+           console.log("HIDE DIALOG")
+           root.fullscreen(false);
+           dialog.visible = false
+       }
+    }
+
+    // Dockbar
     Item {
         id: positioner // Center horizzontally the bottom bar
         width: (list.contentWidth < 2) ? itemSize : list.contentWidth
@@ -29,6 +95,11 @@ Item {
             color: "white"
             opacity: 0.5
             radius: 5
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: { dialog.showDialog() }
+            }
         }
 
         ListView {
@@ -39,20 +110,34 @@ Item {
             anchors.horizontalCenter: backgroundBar.Center
             width: parent.width
             model: dockbarModel
+
+            signal fix(variant client)
+
             delegate: DockbarItem {
                 size: itemSize
                 iconSource: "image://icons/" + model.modelData.icon
                 appName: model.modelData.name
-                onHasMouse: {
+                /*onHasMouse: {
+                    console.log("MMMMMM")
+                    console.log("HAS MOUSE" + containsMouse)
                     timer.running = !containsMouse
                     if (containsMouse){
                         root.height = maxBarHeight
                     }
+                }*/
+
+                onClicked:list.fix(model.modelData.client);
+
+                Component.onDestruction: {
+                    console.log("destruction")
                 }
-                onClicked: {
-                    dockbarExt.removeClientFromDock(model.modelData.client);
-                    root.height = itemSize
-                }
+
+                ListView.onRemove: console.log("REMOVE")
+            }
+
+            onFix: {
+                dockbarExt.removeClientFromDock(client);
+                root.height = itemSize
             }
         }
     }
