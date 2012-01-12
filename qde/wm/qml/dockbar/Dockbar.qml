@@ -7,8 +7,7 @@ Item {
     state: "normal"
 
     function fullscreen(b) {
-        console.log("CIAO")
-        root.state = (b) ? "fullscreen" : ""
+        root.state = (b) ? "fullscreen" : "normal"
     }
 
     states: [
@@ -22,6 +21,7 @@ Item {
                 target: root
                 width: screenWidth
             }
+
         },
 
         State {
@@ -34,18 +34,20 @@ Item {
                 target: root
                 width: (list.count * itemSize) + maxBarHeight/2
             }
+
         }
     ]
 
     Rectangle {
-       id: debugItem
-       visible: true
-       color: "red"
+       id: rootBackground
+       visible: (root.state == "fullscreen")
+       opacity: 0.2
+       color: "black"
        anchors.fill: parent
     }
 
     Timer {
-        id: timer
+        id: rootItemHeightAnimTimer
         interval: 200;
         running: false;
         repeat: false
@@ -104,7 +106,6 @@ Item {
 
         ListView {
             id: list
-            //cacheBuffer: list.count
             orientation: ListView.Horizontal
             anchors.bottom: backgroundBar.bottom
             anchors.horizontalCenter: backgroundBar.Center
@@ -116,30 +117,20 @@ Item {
                 iconSource: "image://icons/" + model.icon
                 appName: model.appname
                 onHasMouse: {
-                    console.log("HAS MOUSE" + containsMouse)
-                    timer.running = !containsMouse
+                    rootItemHeightAnimTimer.running = !containsMouse
                     if (containsMouse){
                         root.height = maxBarHeight
                     }
                 }
 
                 onClicked:{
-                    if (removeItemTimer.running)
-                        return;
-                    removeItemTimer.itemToRemove = model.client
-                    removeItemTimer.start()
+                    if (removeItemTimer.running) return;
+                    removeItemTimer.itemToRemove = model.client;
+                    removeItemTimer.start();
                 }
-
-                Component.onDestruction: {
-                    console.log("destruction")
-                }
-
-                Component.onCompleted: console.log("COMPLETED" + model.appname)
-                ListView.onRemove: console.log("REMOVE")
             }
 
-            // This timer avoid a crash
-            // It ensure items are destroyed after their mouse release methods are executed
+            // Timer ensures that items are destroyed after that their mouse release methods are executed
             Timer {
                 property variant itemToRemove: 0
                 id: removeItemTimer
@@ -148,14 +139,13 @@ Item {
                 triggeredOnStart:false
 
                 onTriggered: {
-                    if (!itemToRemove)
-                        return
-
+                    if (!itemToRemove) return;
                     dockbarExt.removeClientFromDock(itemToRemove);
-                    root.height = itemSize
-                    itemToRemove = 0
+                    root.height = itemSize;
+                    itemToRemove = 0;
                 }
             }
+
         }
     }
 }
