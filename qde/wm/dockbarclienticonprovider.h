@@ -8,8 +8,9 @@
 class ClientIconProvider : public QDeclarativeImageProvider
 {
 public:
-    ClientIconProvider() : QDeclarativeImageProvider(QDeclarativeImageProvider::Pixmap)
-    {
+    static ClientIconProvider* instace(){
+        static ClientIconProvider *singleton = new ClientIconProvider();
+        return singleton;
     }
 
     QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
@@ -28,6 +29,9 @@ public:
     }
 
 private:
+    ClientIconProvider() : QDeclarativeImageProvider(QDeclarativeImageProvider::Pixmap){};
+    Q_DISABLE_COPY(ClientIconProvider)
+
     QMap<QString, QPixmap> mMap;
  };
 

@@ -13,22 +13,23 @@
 #include <QDeclarativeContext>
 #include <QDeclarativeEngine>
 
-#include "dockbaritem.h"
+//#include "dockbaritem.h"
+#include "dockbaritemmodel.h"
 #include "dockbarclienticonprovider.h"
 #include "dockbarqmlextension.h"
 
-Dockbar::Dockbar(Adx *a, QWidget *parent) : QDeclarativeView(parent), iconProvider(new ClientIconProvider)
+Dockbar::Dockbar(Adx *a, QWidget *parent) : QDeclarativeView(parent)
 {   
     qDebug() << "Creating Dockbar";
 
     this->rootContext()->setContextProperty("screenHeight", a->desktop->height());
     this->rootContext()->setContextProperty("screenWidth", a->desktop->width());
 
-    this->engine()->addImageProvider(QLatin1String("icons"), iconProvider);
+    this->engine()->addImageProvider(QLatin1String("icons"), ClientIconProvider::instace());
 
     // Initialize empty dockbarModel
-    this->rootContext()->setContextProperty("dockbarModel", QVariant::fromValue(DockbarItemList));
-    this->rootContext()->setContextProperty("items",DockbarItemList.count());
+    mModel = new DockbarItemModel(this);
+    this->rootContext()->setContextProperty("dockbarModel", mModel);
     this->rootContext()->setContextProperty("dockbarExt", new DockBarQMLExtension(this));
 
     this->setSource(QUrl("qrc:/Dockbar.qml"));
@@ -41,6 +42,7 @@ Dockbar::Dockbar(Adx *a, QWidget *parent) : QDeclarativeView(parent), iconProvid
 
 Dockbar::~Dockbar()
 {
+    delete ClientIconProvider::instace();
 }
 
 void Dockbar::readSettings()
@@ -70,17 +72,17 @@ void Dockbar::saveSettings()
 void Dockbar::addClient(Client *client)
 {
     qDebug() << "Add Client" << client;
-    DockbarItemList.append(new DockbarItem(client, iconProvider));
-    this->rootContext()->setContextProperty("dockbarModel", QVariant::fromValue(DockbarItemList));
-    this->rootContext()->setContextProperty("items",DockbarItemList.count());
-
+    mModel->add(client);
 }
 
 bool Dockbar::removeClient(Client *client)
 {
     qDebug() << "removeClient";
     QObject *item;
+    mModel->remove(client);
+    //DockbarIte.append(new DockbarItem(client, iconProvider));
 
+/*
     foreach(item, DockbarItemList) {
         DockbarItem *i = qobject_cast<DockbarItem*>(item);
         if (i->client() == client) {
@@ -88,8 +90,7 @@ bool Dockbar::removeClient(Client *client)
             break;
         }
     }
-    this->rootContext()->setContextProperty("dockbarModel", QVariant::fromValue(DockbarItemList));
-    this->rootContext()->setContextProperty("items",DockbarItemList.count());
+    */
 }
 
 

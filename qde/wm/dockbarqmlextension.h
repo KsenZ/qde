@@ -25,6 +25,4 @@ signals:
 
 };
 
-Q_DECLARE_METATYPE(Client*)
-
 #endif // DOCKBARQMLEXTENSION_H

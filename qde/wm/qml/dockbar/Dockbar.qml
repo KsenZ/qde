@@ -32,7 +32,7 @@ Item {
             }
             PropertyChanges {
                 target: root
-                width: (items * itemSize) + maxBarHeight/2
+                width: (list.count * itemSize) + maxBarHeight/2
             }
         }
     ]
@@ -104,34 +104,35 @@ Item {
 
         ListView {
             id: list
-            cacheBuffer: items
+            //cacheBuffer: list.count
             orientation: ListView.Horizontal
             anchors.bottom: backgroundBar.bottom
             anchors.horizontalCenter: backgroundBar.Center
             width: parent.width
+            height: 50
             model: dockbarModel
 
             signal fix(variant client)
 
             delegate: DockbarItem {
                 size: itemSize
-                iconSource: "image://icons/" + model.modelData.icon
-                appName: model.modelData.name
-                /*onHasMouse: {
-                    console.log("MMMMMM")
+                iconSource: "image://icons/" + model.icon
+                appName: model.appname
+                onHasMouse: {
                     console.log("HAS MOUSE" + containsMouse)
                     timer.running = !containsMouse
                     if (containsMouse){
                         root.height = maxBarHeight
                     }
-                }*/
+                }
 
-                onClicked:list.fix(model.modelData.client);
+                onClicked:list.fix(model.client);
 
                 Component.onDestruction: {
                     console.log("destruction")
                 }
 
+                Component.onCompleted: console.log("COMPLETED" + model.appname)
                 ListView.onRemove: console.log("REMOVE")
             }
 

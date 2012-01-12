@@ -3,7 +3,7 @@ VERSION = 0.1.98
 
 QT += dbus xml declarative
 CONFIG += qt link_pkgconfig debug
-PKGCONFIG += xfixes x11 xdamage xcomposite
+PKGCONFIG += xfixes x11 xdamage xcomposite xrender
 RESOURCES = theme/std.qrc \
     qml/dockbar/dockbar.qrc
 
@@ -45,7 +45,8 @@ HEADERS += defs.h \
     compmgr.h \
     dockbaritem.h \
     dockbarclienticonprovider.h \
-    dockbarqmlextension.h
+    dockbarqmlextension.h \
+    dockbaritemmodel.h
 
 SOURCES += main.cpp \
         aboutdlg.cpp \
@@ -59,7 +60,6 @@ SOURCES += main.cpp \
         events.cpp \
         decor.cpp \
         client.cpp \
-        x11management.cpp \
         panel.cpp \
         desktop.cpp \
         dockbar.cpp \
@@ -73,7 +73,9 @@ SOURCES += main.cpp \
         kbswitch.cpp \
         systray.cpp \
     powerindicator.cpp \
-    compmgr.cpp
+    compmgr.cpp \
+    dockbaritemmodel.cpp \
+    client-x11.cpp
 
 TARGET = qde
 target.path=/usr/bin

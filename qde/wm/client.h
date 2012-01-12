@@ -125,5 +125,5 @@ public:
         QPoint mousepos;
         bool resizeState;
 };
-
+Q_DECLARE_METATYPE(Client*)
 #endif

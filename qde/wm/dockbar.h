@@ -13,13 +13,10 @@
 #include "defs.h"
 
 class Client;
-class DockbarItem;
-class DockIcon; // REMOVE
 class Adx;
 class ClientIconProvider;
 
-//typedef QList<DockIcon *> DockIconsList;
-
+class DockbarItemModel;
 class Dockbar : public QDeclarativeView
 {
     Q_OBJECT
@@ -50,8 +47,7 @@ protected:
         virtual void resizeEvent (QResizeEvent * event);
 
 private:
-        QList<QObject*> DockbarItemList;
-        ClientIconProvider *iconProvider;
+        DockbarItemModel *mModel;
 };
 
 #endif
