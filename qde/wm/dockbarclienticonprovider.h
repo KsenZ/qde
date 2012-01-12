@@ -17,10 +17,20 @@ public:
     QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
     {
         qDebug() << "Request Pixmap" << id;
-        //QString key = id;
-        //key.remove("image://icons/");
-        //QPixmap pixmap = mMap[key];
-        return QIcon::fromTheme(id.toLower()).pixmap(128, 128); //FIXME Hardcoded
+
+        QPixmap icon = mMap.value(id);
+
+        if (!icon.isNull())
+            return icon;
+
+        icon = QIcon::fromTheme(id.toLower()).pixmap(128, 128);
+
+        // Get default icon
+        if (icon.isNull())
+            icon = QIcon::fromTheme("application-x-executable").pixmap(128, 128);
+
+        append(id, icon);
+        return icon;
     }
 
     void append(const QString& appId, QPixmap pix){
