@@ -4,6 +4,7 @@
 #include <QDeclarativeImageProvider>
 #include <QMap>
 #include <QDebug>
+#include <QIcon>
 
 class ClientIconProvider : public QDeclarativeImageProvider
 {
@@ -19,8 +20,7 @@ public:
         QString key = id;
         key.remove("image://icons/");
         QPixmap pixmap = mMap[key];
-
-        return pixmap;
+        return QIcon::fromTheme("kaffeine").pixmap(128, 128); //FIXME Hardcoded
     }
 
     void append(const QString& appId, QPixmap pix){

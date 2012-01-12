@@ -60,7 +60,7 @@ void DockbarItemModel::add(Client* client)
         return;
 
     // Append new item
-    int first = mItems.count() + 1;
+    int first = mItems.count();
     int last = first;
     beginInsertRows(QModelIndex(), first, last);
     mItems.append(client);
