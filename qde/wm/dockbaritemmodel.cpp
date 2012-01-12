@@ -43,7 +43,7 @@ int DockbarItemModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)
 
-    qDebug() << "DockbarItemModel count" << mItems.count();
+    //qDebug() << "DockbarItemModel count" << mItems.count();
     return mItems.count();
 }
 

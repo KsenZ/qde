@@ -109,10 +109,7 @@ Item {
             anchors.bottom: backgroundBar.bottom
             anchors.horizontalCenter: backgroundBar.Center
             width: parent.width
-            //height: 50
             model: dockbarModel
-
-            signal fix(variant client)
 
             delegate: DockbarItem {
                 size: itemSize
@@ -126,7 +123,12 @@ Item {
                     }
                 }
 
-                onClicked:list.fix(model.client);
+                onClicked:{
+                    if (removeItemTimer.running)
+                        return;
+                    removeItemTimer.itemToRemove = model.client
+                    removeItemTimer.start()
+                }
 
                 Component.onDestruction: {
                     console.log("destruction")
@@ -136,9 +138,23 @@ Item {
                 ListView.onRemove: console.log("REMOVE")
             }
 
-            onFix: {
-                dockbarExt.removeClientFromDock(client);
-                root.height = itemSize
+            // This timer avoid a crash
+            // It ensure items are destroyed after their mouse release methods are executed
+            Timer {
+                property variant itemToRemove: 0
+                id: removeItemTimer
+                interval: 10
+                repeat: false
+                triggeredOnStart:false
+
+                onTriggered: {
+                    if (!itemToRemove)
+                        return
+
+                    dockbarExt.removeClientFromDock(itemToRemove);
+                    root.height = itemSize
+                    itemToRemove = 0
+                }
             }
         }
     }

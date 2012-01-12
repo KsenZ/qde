@@ -32,7 +32,7 @@ Rectangle {
         id: ma
         anchors.fill: parent
         hoverEnabled: true
-        onClicked: { dockbaritem.clicked(); }
+        onReleased: { dockbaritem.clicked(); }
         onContainsMouseChanged: { dockbaritem.hasMouse(ma.containsMouse); }
     }
 
