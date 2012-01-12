@@ -32,7 +32,7 @@ QVariant DockbarItemModel::data(const QModelIndex &index, int role) const
         case AppNameRole:
             return QVariant::fromValue(client->appName);
         case IconRole:
-            return QVariant::fromValue(client->icnName);
+            return QVariant::fromValue(client->appName);
         default:
             return QVariant();
         }

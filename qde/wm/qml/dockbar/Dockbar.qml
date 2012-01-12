@@ -109,7 +109,7 @@ Item {
             anchors.bottom: backgroundBar.bottom
             anchors.horizontalCenter: backgroundBar.Center
             width: parent.width
-            height: 50
+            //height: 50
             model: dockbarModel
 
             signal fix(variant client)
