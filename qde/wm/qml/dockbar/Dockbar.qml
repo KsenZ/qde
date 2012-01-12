@@ -21,9 +21,7 @@ Item {
                 target: root
                 width: screenWidth
             }
-
         },
-
         State {
             name: "normal"
             PropertyChanges {
@@ -34,7 +32,6 @@ Item {
                 target: root
                 width: (list.count * itemSize) + maxBarHeight/2
             }
-
         }
     ]
 
