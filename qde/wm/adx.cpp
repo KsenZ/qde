@@ -7,7 +7,6 @@
 #include <QtDBus>
 #include "adx.h"
 #include "atoms.h"
-#include "aboutdlg.h"
 #include "quitdlg.h"
 #include "dbusadaptor.h"
 #include "sysmenu.h"

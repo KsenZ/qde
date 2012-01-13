@@ -1,7 +1,6 @@
 #include <QtDBus>
 #include "sysmenu.h"
 #include "panel.h"
-#include "aboutdlg.h"
 #include "adx.h"
  
 SystemMenu::SystemMenu(Adx *a, Panel *p, QWidget *parent)

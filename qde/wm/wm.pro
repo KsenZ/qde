@@ -21,7 +21,6 @@ INCLUDEPATH += ../amelib /usr/include/ame/
 LIBS += -L../amelib -lame
 
 HEADERS += defs.h \
-        aboutdlg.h \
         quitdlg.h \
         alttab.h \
         atoms.h \
@@ -49,7 +48,6 @@ HEADERS += defs.h \
     dockbaritemmodel.h
 
 SOURCES += main.cpp \
-        aboutdlg.cpp \
         quitdlg.cpp \
         alttab.cpp \
         atoms.cpp \
