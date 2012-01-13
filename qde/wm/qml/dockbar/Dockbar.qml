@@ -6,10 +6,6 @@ Item {
     property int maxBarHeight: itemSize * 2
     state: "normal"
 
-    function fullscreen(b) {
-        root.state = (b) ? "fullscreen" : "normal"
-    }
-
     states: [
         State {
             name: "fullscreen"
@@ -32,6 +28,10 @@ Item {
                 target: root
                 width: (list.count * itemSize) + maxBarHeight/2
             }
+            PropertyChanges {
+                target: dlgLoader
+                source: ""
+            }
         }
     ]
 
@@ -41,6 +41,14 @@ Item {
        opacity: 0.2
        color: "black"
        anchors.fill: parent
+
+       MouseArea {
+           anchors.fill: parent
+           onClicked: root.state = "normal";
+       }
+
+       //onClose:
+
     }
 
     Timer {
@@ -51,32 +59,25 @@ Item {
         onTriggered: height = itemSize
     }
 
+    Connections {
+        target: dockbarExt
+        onShowAboutDlg: {
+            root.state = "fullscreen";
+            dlgLoader.source = "AboutDialog.qml"
+        }
+    }
+
     // Dialog
     Item {
-       id: dialog
-       anchors.fill: parent
-       visible: false
-       MouseArea {
-           anchors.fill: parent
-           onClicked: dialog.hideDialog();
-       }
-       /*
-       Connections {
-            target: dockbarExt
-            onShowAboutDialog: dialog.showDialog();
-       }*/
-
-       function showDialog() {
-           console.log("SHOW DIALOG")
-           root.fullscreen(true);
-           dialog.visible = true
-
-       }
-       function hideDialog() {
-           console.log("HIDE DIALOG")
-           root.fullscreen(false);
-           dialog.visible = false
-       }
+        anchors.fill: parent
+        Loader {
+            id: dlgLoader
+            anchors.centerIn: parent
+        }
+        Connections {
+            target: dlgLoader.item
+            onClose: root.state = "normal";
+        }
     }
 
     // Dockbar
@@ -85,6 +86,7 @@ Item {
         width: (list.contentWidth < 2) ? itemSize : list.contentWidth
         height: parent.height
         anchors.centerIn: parent
+        visible: (root.state != "fullscreen")
 
         Rectangle {
             id: backgroundBar

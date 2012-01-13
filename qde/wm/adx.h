@@ -15,10 +15,6 @@
 #include "panel.h"
 #include "currentapp.h"
 
-#define MAJOR_VERSION 0
-#define MINOR_VERSION 1
-#define MODIFICATION "98-1-gnuton.org"
-
 class DBusAdaptor;
 class QDBusInterface;
 class AltTabDlg;

@@ -31,8 +31,9 @@
 class Client;
 class Adx;
 class ClientIconProvider;
-
+class DockBarQMLExtension;
 class DockbarItemModel;
+
 class Dockbar : public QDeclarativeView
 {
     Q_OBJECT
@@ -51,9 +52,6 @@ public:
 
     void showAboutDialog();
 
-	void readSettings();
-	void saveSettings();
-
 signals:
 	void clientRemoved(Client *);
 
@@ -64,6 +62,7 @@ protected:
 
 private:
         DockbarItemModel *mModel;
+        DockBarQMLExtension *mQmlExtender;
 };
 
 #endif

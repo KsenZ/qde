@@ -44,8 +44,9 @@ Dockbar::Dockbar(Adx *a, QWidget *parent) : QDeclarativeView(parent)
 
     // Initialize empty dockbarModel
     mModel = new DockbarItemModel(this);
+    mQmlExtender = new DockBarQMLExtension(this);
     this->rootContext()->setContextProperty("dockbarModel", mModel);
-    this->rootContext()->setContextProperty("dockbarExt", new DockBarQMLExtension(this));
+    this->rootContext()->setContextProperty("dockbarExt", mQmlExtender);
 
     this->setSource(QUrl("qrc:/Dockbar.qml"));
     this->setResizeMode(SizeViewToRootObject);
@@ -60,30 +61,6 @@ Dockbar::~Dockbar()
     delete ClientIconProvider::instace();
 }
 
-void Dockbar::readSettings()
-{
-    qDebug() << "READ SETTINGS";
-/*
-	app->stg->beginGroup("Dockbar");
-        dockPix = app->stg->value("dock_pix", QCoreApplication::applicationDirPath() + "/../share/themes/antico/default/dockbar.png").toString();
-	dockSizeFactor = app->stg->value("dock_factor", 100).toInt();
-	setAnimSpeed(app->stg->value("dock_anim_factor", 0).toInt());
-	autoHide = app->stg->value("dock_autohide", false).toBool();
-	app->stg->endGroup(); //Dockbar
-*/
-}
-
-void Dockbar::saveSettings()
-{
-    qDebug() << "Save settings";
-/*
-	app->stg->beginGroup("Dockbar");
-	app->stg->setValue("dock_autohide", autoHide);	
-	app->stg->endGroup();
-	app->stg->sync();
-*/
-}
-
 void Dockbar::addClient(Client *client)
 {
     qDebug() << "Add Client" << client;
@@ -95,34 +72,12 @@ bool Dockbar::removeClient(Client *client)
     qDebug() << "removeClient";
     QObject *item;
     mModel->remove(client);
-    //DockbarIte.append(new DockbarItem(client, iconProvider));
-
-/*
-    foreach(item, DockbarItemList) {
-        DockbarItem *i = qobject_cast<DockbarItem*>(item);
-        if (i->client() == client) {
-            DockbarItemList.removeOne(i);
-            break;
-        }
-    }
-    */
 }
 
 
 bool Dockbar::removeAll()
 {
     qDebug() << "removeAll";
-    /*
-	DockIcon *d;
-	foreach(d, *iconsList)
-	{
-		d->client->mapFast();
-		iconsList->removeOne(d);
-		d->close();
-		updateSize();
-	}
-        return true;
-        */
 }
 
 void Dockbar::addLauncher(const QString &file)
@@ -131,8 +86,7 @@ void Dockbar::addLauncher(const QString &file)
 }
 
 void Dockbar::showAboutDialog(){
-    qDebug() << "DLG";
-
+    mQmlExtender->showAboutDialog();
 }
 
 void Dockbar::dragEnterEvent(QDragEnterEvent *event)

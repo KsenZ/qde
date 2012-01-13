@@ -105,7 +105,8 @@ INSTALLS += target exec_files theme_files session_gdm_files session_kdm_files
 
 OTHER_FILES += \
     qml/dockbar/DockbarItem.qml \
-    qml/dockbar/Dockbar.qml
+    qml/dockbar/Dockbar.qml \
+    qml/dockbar/AboutDialog.qml
 
 
 
