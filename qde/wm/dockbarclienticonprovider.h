@@ -36,6 +36,9 @@ public:
 
     QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
     {
+        Q_UNUSED(size);
+        Q_UNUSED(requestedSize)
+
         qDebug() << "Request Pixmap" << id;
 
         QPixmap icon = mMap.value(id);

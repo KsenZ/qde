@@ -44,8 +44,8 @@ public:
 	
 	// Client management functions
     void addClient(Client *client);
-    bool removeClient(Client *client);
-	bool removeAll();
+    void removeClient(Client *client);
+    void removeAll();
 
 	// Launchers management functions
 	void addLauncher(const QString &file);

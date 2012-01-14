@@ -67,17 +67,20 @@ void Dockbar::addClient(Client *client)
     mModel->add(client);
 }
 
-bool Dockbar::removeClient(Client *client)
+void Dockbar::removeClient(Client *client)
 {
     qDebug() << "removeClient";
-    QObject *item;
     mModel->remove(client);
 }
 
 
-bool Dockbar::removeAll()
+void Dockbar::removeAll()
 {
     qDebug() << "removeAll";
+    QList<Client*> clients = mModel->removeAll();
+    foreach(Client* client, clients){
+        client->map();
+    }
 }
 
 void Dockbar::addLauncher(const QString &file)
@@ -116,8 +119,6 @@ void Dockbar::dropEvent(QDropEvent *event)
 void Dockbar::resizeEvent(QResizeEvent *event)
 {
     Q_UNUSED(event)
-    qDebug() << "RESIZE" << event->size();
-
     // Set Geometry
     int maxW = QApplication::desktop()->width();
     int maxH = QApplication::desktop()->height();

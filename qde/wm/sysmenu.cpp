@@ -17,6 +17,7 @@ SystemMenu::SystemMenu(Adx *a, Panel *p, QWidget *parent)
 
 void SystemMenu::rebuildMenu(bool dockHiding)
 {
+    Q_UNUSED(dockHiding)
 	if (menu()) {
 		menu()->clear();
 	}

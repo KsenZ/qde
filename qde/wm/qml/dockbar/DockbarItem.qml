@@ -22,12 +22,7 @@ Rectangle {
         anchors.fill: parent
         source: dockbaritem.iconSource
     }
-    /*
-    Text {
-        color: "white"
-        text: dockbaritem.appName
-    }
-    */
+
     MouseArea {
         id: ma
         anchors.fill: parent

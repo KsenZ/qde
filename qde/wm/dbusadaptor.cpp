@@ -45,17 +45,20 @@ void DBusAdaptor::minimizeDblClick(bool active)
 
 void DBusAdaptor::changeDockSize(int factor) // REMOVE ME
 {
+    Q_UNUSED(factor)
     //dock->setSizeFactor(factor);
 }
 
 void DBusAdaptor::setDockAutoHide(bool active)  // REMOVE ME
 {
+    Q_UNUSED(active)
     //dock->setAutoHide(active);
     //app->toppanel->sysBtn->rebuildMenu(active);
 }
 
 void DBusAdaptor::changeDockSpeed(int animFactor) // REMOVE ME
 {
+    Q_UNUSED(animFactor)
     //dock->setAnimSpeed(animFactor);
 }
 

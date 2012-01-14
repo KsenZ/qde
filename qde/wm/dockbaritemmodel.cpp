@@ -92,6 +92,18 @@ void DockbarItemModel::remove(Client* client)
     //emit rowCountChanged(mItems.count() - 1);
 }
 
+QList<Client*> DockbarItemModel::removeAll()
+{
+    QList<Client*> clients = mItems;
+    int first = 0;
+    int last = mItems.count() -1;
+    beginRemoveRows(QModelIndex(), first, last);
+    mItems.clear();
+    endRemoveRows();
+
+    return clients;
+}
+
 Qt::ItemFlags DockbarItemModel::flags(const QModelIndex &index) const
 {
     qDebug() << "DockbarItemModel flags";

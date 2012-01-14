@@ -47,6 +47,7 @@ public:
 
     void add(Client* client);
     void remove(Client* client);
+    QList<Client*> removeAll();
 
 signals:
     //void rowCountChanged(int count);

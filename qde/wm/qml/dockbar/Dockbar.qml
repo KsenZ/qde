@@ -46,9 +46,6 @@ Item {
            anchors.fill: parent
            onClicked: root.state = "normal";
        }
-
-       //onClose:
-
     }
 
     Timer {
@@ -96,11 +93,7 @@ Item {
             color: "white"
             opacity: 0.5
             radius: 5
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: { dialog.showDialog() }
-            }
+            visible: list.count
         }
 
         ListView {
