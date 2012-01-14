@@ -34,9 +34,9 @@ public:
 		process_CreateWindow,
 		process_SwitchingWindows,
 	};
-	
-	Adx(int &argc, char **argv);
-	~Adx();
+
+    Adx(int &argc, char **argv);
+    ~Adx();
 	void wmCleanup();
 	void readAdxSettings();
 
@@ -108,7 +108,7 @@ public:
 	AltTabDlg *alttab;
 	bool keygrab;//, ctrlgrab;
 	Client *client;
-	compmgr *compositorMgr;
+    compmgr *compositorMgr;
 };
 
 #endif

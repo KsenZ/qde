@@ -76,7 +76,7 @@ void Client::init()
 	getAppName();
 	getWMName();
 	getWMProtocols();
-	
+
 	windowRole = Atoms::windowType(clientId);
 	
 	int bx, by;
@@ -129,7 +129,7 @@ void Client::createDecor()
 	Border *center = new Border(this);
 	layout->addWidget(center, 1, 1);
 
-	titlebar = new Titlebar(appIcon, clientName, windowRole);
+    titlebar = new Titlebar(this->icon(16), clientName, windowRole);
 	layout->addWidget(titlebar, 0, 0, 1, -1);
 	// Window buttons actions
 	if (windowRole != Atoms::Dialog) {
@@ -193,6 +193,21 @@ void Client::setDecorState(bool s)
 		titlebar->changeState(Titlebar::borderInactive);
 		bottombar->changeState(Titlebar::borderInactive);		
 	}
+}
+
+QPixmap Client::icon(int size)
+{
+    qDebug() << "icon" << size << this->appName;
+    QString a = this->appName;
+    Q_ASSERT(!a.isEmpty());
+
+    QPixmap p = icons[size];
+
+    if (!p.isNull())
+        return p;
+
+    QIcon i = QIcon::fromTheme(a.toLower(), QIcon::fromTheme("application-x-executable"));
+    return i.pixmap(size, size);
 }
 
 void Client::iconify()

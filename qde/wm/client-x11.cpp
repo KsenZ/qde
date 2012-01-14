@@ -98,11 +98,7 @@ void Client::getWMHints()
 		if (xwmhints->flags & StateHint && xwmhints->initial_state == IconicState) {
 			setClientState(IconicState);
 		}
-		if (xwmhints->flags & IconPixmapHint) {
-			getServerIcon(xwmhints->icon_pixmap, (xwmhints->flags & IconMaskHint)?(xwmhints->icon_mask):(None));
-		}
-		if (appIcon.isNull())
-			appIcon = QPixmap(":/default/appicon.png");
+
 		// FIXME: UrgencyHint not defined
 		//Urgency = xwmhints->flags & UrgencyHint;
 		wantFocus = xwmhints->input;
@@ -194,45 +190,6 @@ void Client::setClientState(int state)
     XChangeProperty(display(), clientId, Atoms::atom(Atoms::WM_STATE),
                     Atoms::atom(Atoms::WM_STATE), 32, PropModeReplace, (uchar *)data, 2);
 	//qDebug() << "CLIENT STATE =" << clientState;
-}
-
-void Client::getServerIcon(Pixmap icon, Pixmap mask)  // get pixmap from server and scale it
-{
-	int ix, iy;
-	uint iw, ih, bwidth, depth;
-	Window w;
-	GC gc;
-	
-	if (!XGetGeometry(display(), icon, &w, &ix, &iy, &iw, &ih, &bwidth, &depth)) {
-		// no icon defined - set default icon
-		appIcon = QPixmap(":/default/appicon.png");
-		return;
-	}
-#if 1
-	QBitmap pixMask;
-	QPixmap pix = QPixmap::fromX11Pixmap(icon);
-	if (mask != None){
-	    pixMask = QBitmap::fromX11Pixmap(mask);
-	    pix.setMask(pixMask);
-	}
-#else
-	QPixmap pix(iw, ih);
-	pix.detach();
-	gc = XCreateGC(display(), icon, 0, 0);
-	XCopyArea(display(), icon, pix.handle(), gc, 0, 0, iw, ih, 0, 0);
-	XFreeGC(display(), gc);
-	
-	if (mask != None) {
-		gc = XCreateGC(display(), mask, 0, 0);
-		QBitmap bmap(iw, ih);
-		bmap.detach();
-		XCopyArea(display(), mask, bmap.handle(), gc, 0, 0, iw, ih, 0, 0);
-		pix.setMask(bmap);
-		XFreeGC(display(), gc);
-	}
-#endif
-	appIcon = pix.scaledToHeight(dock->height(), Qt::SmoothTransformation);
-
 }
 
 void Client::getColormaps(void)

@@ -40,7 +40,7 @@ Dockbar::Dockbar(Adx *a, QWidget *parent) : QDeclarativeView(parent)
     this->rootContext()->setContextProperty("screenHeight", a->desktop->height());
     this->rootContext()->setContextProperty("screenWidth", a->desktop->width());
 
-    this->engine()->addImageProvider(QLatin1String("icons"), ClientIconProvider::instace());
+    this->engine()->addImageProvider(QLatin1String("icons"), new ClientIconProvider());
 
     // Initialize empty dockbarModel
     mModel = new DockbarItemModel(this);
@@ -58,7 +58,6 @@ Dockbar::Dockbar(Adx *a, QWidget *parent) : QDeclarativeView(parent)
 
 Dockbar::~Dockbar()
 {
-    delete ClientIconProvider::instace();
 }
 
 void Dockbar::addClient(Client *client)

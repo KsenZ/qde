@@ -25,14 +25,14 @@
 #include <QMap>
 #include <QDebug>
 #include <QIcon>
+#include "adx.h"
 
 class ClientIconProvider : public QDeclarativeImageProvider
 {
 public:
-    static ClientIconProvider* instace(){
-        static ClientIconProvider *singleton = new ClientIconProvider();
-        return singleton;
-    }
+    ClientIconProvider() : QDeclarativeImageProvider(QDeclarativeImageProvider::Pixmap), a(0){
+        a = qobject_cast<Adx*>(QApplication::instance());
+    };
 
     QPixmap requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)
     {
@@ -40,32 +40,15 @@ public:
         Q_UNUSED(requestedSize)
 
         qDebug() << "Request Pixmap" << id;
-
-        QPixmap icon = mMap.value(id);
-
-        if (!icon.isNull())
-            return icon;
-
-        icon = QIcon::fromTheme(id.toLower()).pixmap(128, 128);
-
-        // Get default icon
-        if (icon.isNull())
-            icon = QIcon::fromTheme("application-x-executable").pixmap(128, 128);
-
-        append(id, icon);
-        return icon;
+        foreach(Client *c, a->clients){
+            if (c->appName == id)
+                return c->icon(128);
+        }
+        return QPixmap();
     }
-
-    void append(const QString& appId, QPixmap pix){
-        qDebug() << "ClientIconProvider: Appending" << appId;
-        mMap.insert(appId, pix);
-    }
-
 private:
-    ClientIconProvider() : QDeclarativeImageProvider(QDeclarativeImageProvider::Pixmap){};
+    Adx *a;
     Q_DISABLE_COPY(ClientIconProvider)
-
-    QMap<QString, QPixmap> mMap;
  };
 
 #endif // DOCKBARCLIENTICONPROVIDER_H

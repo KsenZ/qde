@@ -40,6 +40,7 @@ public:
         void init();
         void createDecor();
         void setDecorState(bool);
+        QPixmap icon(int size);
 
         // X11 management routines
         void getWMNormalHints();
@@ -47,7 +48,7 @@ public:
         void getWMName();
         void getAppName();
         void getWMProtocols();
-        void getServerIcon(Pixmap icon, Pixmap mask);
+
         void getColormaps(void);
         void setColormaps(Colormap cmap);
         void setClientState(int state);
@@ -62,7 +63,7 @@ public slots:
         void iconifyFast();
         void maximize();
         void map();
-	void show();
+        void show();
         void mapFast();
         void unmap();
         void removeFromDock();
@@ -80,7 +81,6 @@ public slots:
 public:
         QString clientName;			// client title/iconic name
         Window clientId;			// client x11 window id
-        QPixmap appIcon;			// client window icon
         int clientState;
 
         bool protDelete;			// client has WM_DELETE protocol
@@ -124,6 +124,9 @@ public:
         int tbHeight;				// Topbar height
         QPoint mousepos;
         bool resizeState;
+
+private:
+        QMap<int, QPixmap> icons; // size, appIcon
 };
 Q_DECLARE_METATYPE(Client*)
 #endif

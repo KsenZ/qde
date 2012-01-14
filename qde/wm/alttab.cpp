@@ -2,7 +2,7 @@
 #include "adx.h"
 
 ClientIcon::ClientIcon(Client *client, int scale, QWidget *parent)
-	: AmeIcon(client->appName, client->appIcon, scale, parent)
+    : AmeIcon(client->appName, client->icon(128), scale, parent)
 {
 	m_Client = client;
 }

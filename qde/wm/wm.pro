@@ -42,7 +42,6 @@ HEADERS += defs.h \
         panel.h \
     powerindicator.h \
     compmgr.h \
-    dockbaritem.h \
     dockbarclienticonprovider.h \
     dockbarqmlextension.h \
     dockbaritemmodel.h
