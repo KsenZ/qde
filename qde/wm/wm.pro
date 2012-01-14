@@ -55,7 +55,6 @@ SOURCES += main.cpp \
         adxsettings.cpp \
         keybindings.cpp \
         dbusadaptor.cpp \
-        events.cpp \
         decor.cpp \
         client.cpp \
         panel.cpp \
@@ -73,7 +72,8 @@ SOURCES += main.cpp \
     powerindicator.cpp \
     compmgr.cpp \
     dockbaritemmodel.cpp \
-    client-x11.cpp
+    client-x11.cpp \
+    adx-x11.cpp
 
 TARGET = qde
 target.path=/usr/bin
